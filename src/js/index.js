@@ -23,7 +23,6 @@ window.state = state;
 const controlSearch = async () => {
     // 1) get query from view
     const query = searchView.getInput();
-    console.log(query);
 
     if (query) {
         // 2) New search object and add to state
@@ -135,7 +134,6 @@ elements.shopping.addEventListener('click', e => {
 const controlLike = () => {
     if (!state.likes) state.likes = new Likes();
     const currID = state.recipe.id;
-    console.log(currID)
     if (!state.likes.isLiked(currID)) {
         // add like to the state
         const newLike = state.likes.addLike(
@@ -181,7 +179,6 @@ elements.recipe.addEventListener('click', e => {
         if (state.recipe.servings > 1) {
             state.recipe.updateServings('dec');
             recipeView.updateServingsIngredients(state.recipe)
-            // TODO: increasing servings to 6 fails
         }
     } else if (e.target.matches('.btn-increase, .btn-increase *')) {
         // Increase button is clicked
@@ -195,5 +192,3 @@ elements.recipe.addEventListener('click', e => {
         controlLike();
     }
 });
-
-window.l = new List();
