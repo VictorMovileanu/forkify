@@ -11,7 +11,7 @@ import * as likesView from './views/likesView'
 import {elements, renderLoader, clearLoader} from "./views/base";
 
 /*
-* Global state og the app
+* Global state of the app
 * - search object
 * - current recipe object
 * - shopping list object
@@ -103,7 +103,6 @@ const controlRecipe = async () => {
 /*
 * LIST CONTROLLER
 */
-state.likes = new Likes();
 const controlList = () => {
     // create a new list if there is none yet
     if (!state.list) state.list = new List();
@@ -163,6 +162,17 @@ const controlLike = () => {
     likesView.toggleLikeMenu(state.likes.getNumLikes())
 };
 
+// restore liked recipes on page load
+window.addEventListener('load', () => {
+    state.likes = new Likes();
+    // read likes
+    state.likes.readStorage();
+    // toggle menu button
+    likesView.toggleLikeMenu(state.likes.getNumLikes())
+
+    // render the existing likes
+    state.likes.likes.forEach(like => likesView.renderLike(like))
+});
 
 // handling recipe button clicks
 elements.recipe.addEventListener('click', e => {
